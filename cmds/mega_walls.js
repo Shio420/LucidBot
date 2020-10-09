@@ -1,10 +1,10 @@
 module.exports = {
-  name: "murder_mystery",
-  description: "murder mystery statistics",
+  name: "mega_walls",
+  description: "mega walls statistics",
   execute(message, args) {
     
     const Discord = require("discord.js");
-    const { token } = "NjY1NjYwNTM3NDU5MTc5NTcz.Xho2rw.k8li5PF_xr9zHQ0wRDjqKAVellw";
+    const { token } = "NjYxNzM4MDI3MTE4MzYyNjQ0.XgvxkA.rEcKH4YDWdJReHe4zFlDkroz23o";
     const prefix = "!";
     const fetch = require("node-fetch");
     const key = "62f57a9d-9f77-40b3-a3ce-9bb9e326af85";
@@ -48,27 +48,29 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
             if (typeof vers === "undefined") {
               var version = " ";
             }
-            var coins = player["player"]["stats"]["MurderMystery"]["coins"];
-            var mchance = player["player"]["stats"]["MurderMystery"]["murderer_chance"];
-            var dchance = player["player"]["stats"]["MurderMystery"]["detective_chance"];    
-            var inchance = (mchance + dchance);
-            var ichance = (100 - inchance);
-            var mm_chests = player["player"]["stats"]["MurderMystery"]["mm_chests"];
-            var games = player["player"]["stats"]["MurderMystery"]["games"];
-            var wins = player["player"]["stats"]["MurderMystery"]["wins"];
-            var loss = (games - wins);
-            var kills = player["player"]["stats"]["MurderMystery"]["kills"];
-            var deaths = player["player"]["stats"]["MurderMystery"]["deaths"];
+            var coin = player["player"]["stats"]["Walls3"]["coins"]; 
+            var wins = player["player"]["achievements"]["walls3_wins"];
+            var assists = player["player"]["stats"]["Walls3"]["assists"];
+            var fdeaths = player["player"]["stats"]["Walls3"]["final_deaths"];
+            var played = player["player"]["stats"]["Walls3"]["games_played"];
+            var ptime =player["player"]["stats"]["Walls3"]["time_played"];
+            var x = ptime;
+            var l = x / 60;
+            var s = l / 60; 
+            var timep = s.toFixed(2)
+            var dealt = player["player"]["stats"]["Walls3"]["damage_dealt"];
+            var kills = player["player"]["stats"]["Walls3"]["kills"];
+            var loss = player["player"]["stats"]["Walls3"]["losses"];
+            var deaths = player["player"]["stats"]["Walls3"]["deaths"];
             var b = kills;
             var c = deaths;
             var d = b / c;
             var kdrdeci = d;
             var kdr = kdrdeci.toFixed(2);
-            var a = wins;
-            var b = loss;
-            if (loss == null) {var b = 1;}
-            var c = a / b;
-            var wlrdeci = c;
+            var t = wins;
+            var g = loss;
+            var y = t / g;
+            var wlrdeci = y;
             var wlr = wlrdeci.toFixed(2);
             var gamemode = player["player"]["mostRecentGameType"];
             if (typeof gamemode === "undefined") {
@@ -180,14 +182,17 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
               num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
               return num_parts.join(".");
             }
+            var coin = formatNumber(coin);
             var kills = formatNumber(kills);
             var deaths = formatNumber(deaths);
-            var wins = formatNumber(wins);
-            var loss = formatNumber(loss);
-            var coins = formatNumber(coins);
-            var kdr = formatNumber(kdr);
+            var assists = formatNumber(assists);
+            var dealt = formatNumber(dealt);
             var wlr = formatNumber(wlr);
-            var mm_chests = formatNumber(mm_chests);
+            var loss = formatNumber(loss);
+            var wins = formatNumber(wins);
+            var kdr = formatNumber(kdr);
+            var ptime = formatNumber(ptime);
+            var played = formatNumber(played);
             } catch {}
 
              var skin = `https://visage.surgeplay.com/full/${id}?'+Math.random()'`;
@@ -205,7 +210,7 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
                       return response.json();
                     })
                     .then(guilds => {
-                      try {
+                       try {
                         var nnguild = guilds["guild"]["name"];
                         var nguild = nnguild.replace(/ /g,"%20");
                       } catch {
@@ -226,20 +231,20 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
                 }
                     const pbembed = new Discord.MessageEmbed()
                     .setColor(color)
-                    .setTitle('**Murder Mystery**')
-                    .setThumbnail('https://hypixel.net/styles/hypixel-v2/images/game-icons/MurderMystery-64.png')
+                    .setTitle('**Mega Walls**')
+                    .setThumbnail('https://hypixel.net/styles/hypixel-v2/images/game-icons/MegaWalls-64.png')
                     .addField("`Player`", `[**${drank} ${dname} ${guildt}**](https://plancke.io/hypixel/player/stats/${username})`)
-                    .addField("`Murder Chance`", `**${mchance}%**`, true)
-                    .addField("`Detective Chance`", `**${dchance}%**`, true)
-                    .addField("`Innocent Chance`", `**${ichance}%**`, true)
                     .addField("`KDR`", `**${kdr}**`, true)
                     .addField("`Kills`", `**${kills}**`, true)
                     .addField("`Deaths`", `**${deaths}**`, true)
-                    .addField("`Win/Loss`", `**${wlr}**`, true)
+                    .addField("`WLR`", `**${wlr}**`, true)
                     .addField("`Wins`", `**${wins}**`, true)
                     .addField("`Losses`", `**${loss}**`, true)
-                    .addField("`Coins`", `**${coins}**`, true)
-                    .addField("`Loot Chests`", `**${mm_chests}**`, true)
+                    .addField("`Time Played`", `**${ptime}**`, true)
+                    .addField("`Games Played`", `**${played}**`, true)
+                    .addField("`Damage Dealt`", `**${dealt}**`, true)
+                    .addField("`Assists`", `**${assists}**`, true)
+                    .addField("`Coins`", `**${coin}**`, true)
                     .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
                     .setImage(`${skin}`, true)
                     .setTimestamp('')

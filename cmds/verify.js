@@ -3,8 +3,7 @@ module.exports = {
   description: "Verification",
   execute(message, args) {
     const Discord = require("discord.js");
-    const client = new Discord.Client();
-    const { token } = "NjYxNzM4MDI3MTE4MzYyNjQ0.XgvxkA.rEcKH4YDWdJReHe4zFlDkroz23o";
+    const { token } = "NjY1NjYwNTM3NDU5MTc5NTcz.Xho2rw.k8li5PF_xr9zHQ0wRDjqKAVellw";
     const prefix = "!";
     const fetch = require("node-fetch");
     const key = "62f57a9d-9f77-40b3-a3ce-9bb9e326af85";
@@ -32,10 +31,6 @@ module.exports = {
           .then(player => {
             var dname = player["player"]["displayname"];
             var star = player["player"]["achievements"]["bedwars_level"];
-            var version = player["player"]["mcVersionRp"];
-            if (typeof version === "undefined") {
-              var version = "N/A";
-            }
             var fdeath =
               player["player"]["stats"]["Bedwars"]["final_deaths_bedwars"];
             if (fdeath == null) {
@@ -65,20 +60,7 @@ module.exports = {
             if (b == null) {
               var b = 1;
             }
-            var months_arr = [
-              "Jan",
-              "Feb",
-              "Mar",
-              "Apr",
-              "May",
-              "Jun",
-              "Jul",
-              "Aug",
-              "Sep",
-              "Oct",
-              "Nov",
-              "Dec"
-            ];
+            var months_arr = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
             var date = new Date();
             var year = date.getFullYear();
             var month = months_arr[date.getMonth()];
@@ -136,14 +118,7 @@ module.exports = {
               );
               member.roles.add(vrole.id);
               member.roles.remove(urole.id);
-              const verifymessage = new Discord.MessageEmbed()
-                .setColor('#00FF00')
-                .addField("**Congratulations!**", `You have been verifed on the **${message.guild}** Discord.`, true)
-                .setTimestamp(`${time}`)
-                .setFooter(`Kensho v2.4.0 | Created by Kanabayashi#0931 & Bluq#2277`);       
-                message.author.send(verifymessage)
-           
-
+              
               var guildname = `https://api.hypixel.net/findGuild?key=${key}&byUuid=${id}`;
 
               fetch(guildname)
@@ -365,18 +340,6 @@ module.exports = {
                 member.roles.add(wlr.id);
               }
               try {
-                var mrank = player["player"]["monthlyPackageRank"];
-                if (mrank === "SUPERSTAR") {
-                  let mrank = message.guild.roles.cache.find(
-                    role => role.name === "MVP++"
-                  );
-                  let member = message.guild.member(message.author);
-                  member.roles.add(mrank.id);
-                }
-              } catch {
-                return;
-              }
-              try {
                 var drank = player["player"]["newPackageRank"];
                 if (drank === "VIP") {
                   let drank = message.guild.roles.cache.find(
@@ -400,12 +363,44 @@ module.exports = {
                   member.roles.add(drank.id);
                 }
                 if (drank === "MVP_PLUS") {
+                let drank = message.guild.roles.cache.find(
+                  role => role.name === "MVP+"
+                );
+                let member = message.guild.member(message.author);
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "MVP"
+                );
+                let erole = message.guild.roles.cache.find(
+                  role => role.name === "MVP++"
+                );
+                if (mrank === false) {
+                  member.roles.remove(erole.id);
+                }
+                member.roles.remove(urole.id);
+                member.roles.add(drank.id);
+              }
+              try {
+                var mrank = player["player"]["monthlyPackageRank"];
+                if (mrank === "SUPERSTAR") {
+                  let mrank = message.guild.roles.cache.find(
+                    role => role.name === "MVP++"
+                  );
                   let drank = message.guild.roles.cache.find(
                     role => role.name === "MVP+"
                   );
                   let member = message.guild.member(message.author);
-                  member.roles.add(drank.id);
+                  member.roles.remove(drank.id);
+                  member.roles.add(mrank.id);
                 }
+              } catch {
+                member.roles.remove(drank.id);
+              }
+                const verifymessage = new Discord.MessageEmbed()
+                .setColor('#00FF00')
+                .addField("**Congratulations!**", `**${dname}** You have been verifed on the **${message.guild}** Discord.`, true)
+                .setTimestamp(`${time}`)
+                .setFooter(`Lucid v2.5.3 | Created by Kanabayashi#0931 & Bluq#2277`);       
+                message.author.send(verifymessage)
               } catch {
                message.author.send(`**Your linked discord**: __${discord2}__  **& Your discord:** __${discord1}__ **do not match!**`)
               }

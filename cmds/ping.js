@@ -1,12 +1,14 @@
 module.exports = {
   name: "ping",
   description: "Ping The Bot - Bot Statistics",
+  cooldown: 5,
   execute(message, args, client) {
     const Discord = require("discord.js");
+    
 
     const {
       token
-    } = "NjYxNzM4MDI3MTE4MzYyNjQ0.XgvxkA.rEcKH4YDWdJReHe4zFlDkroz23o";
+    } = "NjY1NjYwNTM3NDU5MTc5NTcz.Xho2rw.k8li5PF_xr9zHQ0wRDjqKAVellw";
     const prefix = "!";
     const fetch = require("node-fetch");
     const key = "62f57a9d-9f77-40b3-a3ce-9bb9e326af85";
@@ -18,7 +20,6 @@ module.exports = {
     let minutes = Math.floor(totalSeconds / 60);
     let second = totalSeconds % 60;
     let seconds = second.toFixed(0);
-
     var uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
 
     //var uptime = (`${days}d ${hours}h ${minutes}m ${seconds}s`)
@@ -28,8 +29,28 @@ module.exports = {
       .setTitle(":satellite:  Ping Complete")
       .addField(`Latency:`, `${latency}`)
       .addField(`Uptime:`, `${uptime}`)
+      .addField("`Invite`", `[**Lucid Bot**](https://discord.com/oauth2/authorize?client_id=665660537459179573&scope=bot&permissions=0)`)
       .setColor(0xf1c40f)
-      .setFooter(`Lucid v2.4.0 | Created by Kanabayashi#0931 & Bluq#2277`);
-    message.channel.send(ping);
+      .setFooter(`Lucid v2.5.3 | Created by Kanabayashi#0931 & Bluq#2277`);
+    const pingEmbed = message.reply({embed: ping}).then(msg => {
+        msg.react('📩');
+        msg.react('❌');
+
+        const collector = msg.createReactionCollector(
+        (reaction, user) => ['❌','📩',].includes(reaction.emoji.name) && user.id === message.author.id,
+        {idle: 300000}
+        )
+        collector.on('collect', reaction => {
+		
+                if (reaction.emoji.name === '📩') {
+                reaction.users.remove(message.author.id);
+                message.author.send(ping)
+                 }
+                if (reaction.emoji.name === '❌') {
+                msg.delete();
+                message.delete();
+                 }
+        })
+        })
   }
 };

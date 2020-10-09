@@ -1,21 +1,21 @@
- module.exports = {
+module.exports = {
   name: "auto_update",
   description: "update",
-  execute(message, args) {
+  execute(message) {
     const Discord = require("discord.js");
-    const client = new Discord.Client();
     const {
       token
-    } = "NjYxNzM4MDI3MTE4MzYyNjQ0.XgvxkA.rEcKH4YDWdJReHe4zFlDkroz23o";
+    } = "NjY1NjYwNTM3NDU5MTc5NTcz.Xho2rw.k8li5PF_xr9zHQ0wRDjqKAVellw";
     const prefix = "!";
     const fetch = require("node-fetch");
     const key = "62f57a9d-9f77-40b3-a3ce-9bb9e326af85";
     var nickname2 = message.member.displayName;
     let splitcommand = nickname2.split(" ");
     const username = splitcommand.slice(1)
-    try {
-    const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
-    fetch(api)
+try{
+const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
+fetch(api)
+      .catch()
       .then(response => {
         return response.json();
       })
@@ -28,10 +28,9 @@
           .then(response => {
             return response.json();
           })
+          
           .then(player => {
-            try {
             var star = player["player"]["achievements"]["bedwars_level"]
-            } catch {}
             var fdeath =
               player["player"]["stats"]["Bedwars"]["final_deaths_bedwars"];
             var fkill =
@@ -51,8 +50,7 @@
             var wlr = wlrdeci.toFixed(2);
             var discord1 = message.member.user.tag.toLowerCase();
             var discord2 = player["player"]["socialMedia"]["links"]["DISCORD"].toLowerCase();
-            
-
+        
             if (discord2 == null) { message.channel.send(`Make sure your Discord is linked on Hypixel!`);
             }
             var dname = player["player"]["displayname"];
@@ -62,7 +60,7 @@
                 `oops! something went wrong, Make sure you have your Discord linked on Hypixel!`
               );
             }
-
+          
             if (discord1 === discord2) {
             const member = message.guild.member(message.author);
             let vrole = message.guild.roles.cache.find(role => role.name === "Verified");
@@ -83,8 +81,14 @@
                       let gmember = message.guild.roles.cache.find(
                         role => role.name === "[»] Guild Member"
                       );
-                      member.roles.add(gmember.id).catch();
-                    }
+                      member.roles.add(gmember.id);
+                    } else {
+                      let member = message.guild.member(message.author);
+                      let gmember = message.guild.roles.cache.find(
+                        role => role.name === "[»] Guild Member"
+                      );
+                      member.roles.remove(gmember.id);
+                    } 
                   } catch {}
                 });
               if (fkdr >= 0 && fkdr <= 1) {
@@ -99,6 +103,10 @@
                 let fkdr = message.guild.roles.cache.find(
                   role => role.name === "| 1-3 FKDR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 0-1 FKDR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(fkdr.id);
               }
               if (fkdr >= 3 && fkdr <= 5) {
@@ -106,6 +114,10 @@
                 let fkdr = message.guild.roles.cache.find(
                   role => role.name === "| 3-5 FKDR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 1-3 FKDR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(fkdr.id);
               }
               if (fkdr >= 5 && fkdr <= 7) {
@@ -113,6 +125,10 @@
                 let fkdr = message.guild.roles.cache.find(
                   role => role.name === "| 5-7 FKDR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 3-5 FKDR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(fkdr.id);
               }
               if (fkdr >= 7 && fkdr <= 10) {
@@ -120,6 +136,10 @@
                 let fkdr = message.guild.roles.cache.find(
                   role => role.name === "| 7-10 FKDR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 5-7 FKDR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(fkdr.id);
               }
               if (fkdr >= 10 && fkdr <= 15) {
@@ -127,6 +147,10 @@
                 let fkdr = message.guild.roles.cache.find(
                   role => role.name === "| 10-15 FKDR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 7-10 FKDR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(fkdr.id);
               }
               if (fkdr >= 15 && fkdr <= 20) {
@@ -134,6 +158,10 @@
                 let fkdr = message.guild.roles.cache.find(
                   role => role.name === "| 15-20 FKDR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 10-15 FKDR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(fkdr.id);
               }
               if (fkdr >= 20 && fkdr <= 1000) {
@@ -141,6 +169,10 @@
                 let fkdr = message.guild.roles.cache.find(
                   role => role.name === "| 20+ FKDR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 15-20 FKDR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(fkdr.id);
               }
               if (wlr >= 0 && wlr <= 1) {
@@ -155,6 +187,10 @@
                 let wlr = message.guild.roles.cache.find(
                   role => role.name === "| 1-2 WLR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 0-1 WLR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(wlr.id);
               }
               if (wlr >= 2 && wlr <= 3) {
@@ -162,6 +198,10 @@
                 let wlr = message.guild.roles.cache.find(
                   role => role.name === "| 2-3 WLR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 1-2 WLR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(wlr.id);
               }
               if (wlr >= 3 && wlr <= 5) {
@@ -169,6 +209,10 @@
                 let wlr = message.guild.roles.cache.find(
                   role => role.name === "| 3-5 WLR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 2-3 WLR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(wlr.id);
               }
               if (wlr >= 5 && wlr <= 8) {
@@ -176,6 +220,10 @@
                 let wlr = message.guild.roles.cache.find(
                   role => role.name === "| 5-8 WLR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 3-5 WLR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(wlr.id);
               }
               if (wlr >= 8 && wlr <= 10) {
@@ -183,6 +231,10 @@
                 let wlr = message.guild.roles.cache.find(
                   role => role.name === "| 8-10 WLR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 5-8 WLR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(wlr.id);
               }
               if (wlr >= 10 && wlr <= 15) {
@@ -190,6 +242,10 @@
                 let wlr = message.guild.roles.cache.find(
                   role => role.name === "| 10-15 WLR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 8-10 WLR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(wlr.id);
               }
               if (wlr >= 15 && wlr <= 1000) {
@@ -197,6 +253,10 @@
                 let wlr = message.guild.roles.cache.find(
                   role => role.name === "| 15+ WLR"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "| 10-15 WLR"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(wlr.id);
               }
               if (star >= 0 && star <= 99) {
@@ -212,6 +272,10 @@
                 let prestige = message.guild.roles.cache.find(
                   role => role.name === "[»] Iron Prestige"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "[»] Stone Prestige"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(prestige.id);
                 member.setNickname(`[${star}✫] ${dname}`);
               }
@@ -220,6 +284,10 @@
                 let prestige = message.guild.roles.cache.find(
                   role => role.name === "[»] Gold Prestige"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "[»] Iron Prestige"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(prestige.id);
                 member.setNickname(`[${star}✫] ${dname}`);
               }
@@ -228,6 +296,10 @@
                 let prestige = message.guild.roles.cache.find(
                   role => role.name === "[»] Diamond Prestige"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "[»] Gold Prestige"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(prestige.id);
                 member.setNickname(`[${star}✫] ${dname}`);
               }
@@ -236,6 +308,10 @@
                 let prestige = message.guild.roles.cache.find(
                   role => role.name === "[»] Emerald Prestige"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "[»] Diamond Prestige"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(prestige.id);
                 member.setNickname(`[${star}✫] ${dname}`);
               }
@@ -244,6 +320,10 @@
                 let prestige = message.guild.roles.cache.find(
                   role => role.name === "[»] Sapphire Prestige"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "[»] Emerald Prestige"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(prestige.id);
                 member.setNickname(`[${star}✫] ${dname}`);
               }
@@ -252,6 +332,10 @@
                 let prestige = message.guild.roles.cache.find(
                   role => role.name === "[»] Ruby Prestige"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "[»] Sapphire Prestige"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(prestige.id);
                 member.setNickname(`[${star}✫] ${dname}`);
               }
@@ -260,6 +344,10 @@
                 let prestige = message.guild.roles.cache.find(
                   role => role.name === "[»] Crystal Prestige"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "[»] Ruby Prestige"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(prestige.id);
                 member.setNickname(`[${star}✫] ${dname}`);
               }
@@ -268,6 +356,10 @@
                 let prestige = message.guild.roles.cache.find(
                   role => role.name === "[»] Opal Prestige"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "[»] Crystal Prestige"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(prestige.id);
                 member.setNickname(`[${star}✫] ${dname}`);
               }
@@ -276,6 +368,10 @@
                 let prestige = message.guild.roles.cache.find(
                   role => role.name === "[»] Amethyst Prestige"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "[»] Opal Prestige"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(prestige.id);
                 member.setNickname(`[${star}✫] ${dname}`);
               }
@@ -284,6 +380,10 @@
                 let prestige = message.guild.roles.cache.find(
                   role => role.name === "[»] Rainbow Prestige"
                 );
+                let urole = message.guild.roles.cache.find(
+                  role => role.name === "[»] Amethyst Prestige"
+                );
+                member.roles.remove(urole.id);
                 member.roles.add(prestige.id);
                 member.setNickname(`[${star}✫] ${dname}`);
               }
@@ -338,7 +438,7 @@
               }
               if (
                 message.member.roles.cache.some(r =>
-                  ["[»] Officials"].includes(r.name)
+                  ["[»] Leader"].includes(r.name)
                 )
               ) {
                 member.setNickname(`[${star}✫] ${dname}`);
@@ -421,14 +521,10 @@
               } catch {
                 member.roles.remove(drank.id);
               }
-              
             } else {
-              message.author.send(
-                `**Your linked discord**: __${discord2}__  **& Your discord:** __${discord1}__ **do not match!**`
-              );
             }
           });
       });
-    } catch { return }
+      } catch {return};
   }
 };

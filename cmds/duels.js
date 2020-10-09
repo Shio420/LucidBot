@@ -4,7 +4,6 @@ module.exports = {
   execute(message, args) {
     
     const Discord = require("discord.js");
-    const client = new Discord.Client();
     const { token } = "NjYxNzM4MDI3MTE4MzYyNjQ0.XgvxkA.rEcKH4YDWdJReHe4zFlDkroz23o";
     const prefix = "!";
     const fetch = require("node-fetch");
@@ -31,48 +30,24 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
 
           .then(player => {
             var joindate = player["player"]["firstLogin"];
-            var months_arr = [
-              "Jan",
-              "Feb",
-              "Mar",
-              "Apr",
-              "May",
-              "Jun",
-              "Jul",
-              "Aug",
-              "Sep",
-              "Oct",
-              "Nov",
-              "Dec"
-            ];
+           var months_arr = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
             var date = new Date(joindate);
             var year = date.getFullYear();
             var month = months_arr[date.getMonth()];
             var day = date.getDate();
             var convdataTime = month + "/" + day + "/" + year + ``;
             var lastlogout2 = player["player"]["lastLogout"];
-            var lmonths_arr = [
-              "Jan",
-              "Feb",
-              "Mar",
-              "Apr",
-              "May",
-              "Jun",
-              "Jul",
-              "Aug",
-              "Sep",
-              "Oct",
-              "Nov",
-              "Dec"
-            ];
             var ldate = new Date(lastlogout2);
             var lyear = ldate.getFullYear();
-            var lmonth = lmonths_arr[ldate.getMonth()];
+            var lmonth = months_arr[ldate.getMonth()];
             var lday = ldate.getDate();
             var lastlogout2 = lmonth + "/" + lday + "/" + lyear + ``;
             var dname = player["player"]["displayname"];
-            var version = player["player"]["mcVersionRp"];
-            if (typeof version === "undefined") {var version = "N/A"};
+            var vers = (player["player"]["mcVersionRp"]);
+            var version = ("On " + vers)
+            if (typeof vers === "undefined") {
+              var version = " ";
+            }
             var coins = player["player"]["stats"]["Duels"]["coins"];
             var hits = player["player"]["stats"]["Duels"]["melee_hits"];
             var swings = player["player"]["stats"]["Duels"]["melee_swings"];
@@ -222,32 +197,45 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
             var winstreak = formatNumber(winstreak);
             } catch {}
 
-          var skin = `https://visage.surgeplay.com/full/${id}?'+Math.random()'`;
-          
-            if (lastlogin > lastlogout) {
-               let lastl = ('Online')
-                                
-            var guildname = `https://api.hypixel.net/findGuild?key=${key}&byUuid=${id}`
-                fetch(guildname)
-              .then(response => {
-                return response.json();
-                })
-              .then(guild => {
-                var guildn = guild['guild']
-                  
-                var guildstats = `https://api.hypixel.net/guild?key=${key}&id=${guildn}`
-                    fetch(guildstats)
+             var skin = `https://visage.surgeplay.com/full/${id}?'+Math.random()'`;
+           var guildname = `https://api.hypixel.net/findGuild?key=${key}&byUuid=${id}`;
+              fetch(guildname)
                 .then(response => {
-                    return response.json();
+                  return response.json();
                 })
-                .then(guilds => {
-                  try { var nguild = guilds['guild']['name'] } catch {var nguild = "None"}
-                                    
-                    const swembed = new Discord.MessageEmbed()
-                    .setColor('#00FF00')
+                .then(guild => {
+                  var guildn = guild["guild"];
+
+                  var guildstats = `https://api.hypixel.net/guild?key=${key}&id=${guildn}`;
+                  fetch(guildstats)
+                    .then(response => {
+                      return response.json();
+                    })
+                    .then(guilds => {
+                      try {
+                        var nnguild = guilds["guild"]["name"];
+                        var nguild = nnguild.replace(/ /g,"%20");
+                      } catch {
+                        var nnguild = "None";
+                      }
+                      try { var guildt = "[" + guilds['guild']['tag'] + "] " } catch {var guildt = " "}
+            if (lastlogin > lastlogout) {
+               var lastl = ('Online')
+               var footer = (`${dname}'s ${lastl} | Playing ${gamemode}! | ${version}`) 
+               var footp = ("http://icons.iconarchive.com/icons/custom-icon-design/flatastic-10/512/Trafficlight-green-icon.png")
+               var color = ('#00FF00')
+            }
+            if (lastlogin < lastlogout) {
+               var lastl = ('Offline')
+               var footer = (`${dname}'s ${lastl} | Last Seen In ${gamemode}! | ${version}`)
+               var footp = ("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/768px-Location_dot_dark_red.svg.png")
+               var color = ('#b22121')
+                }
+                    const pbembed = new Discord.MessageEmbed()
+                    .setColor(color)
                     .setTitle('**Duels**')
                     .setThumbnail('https://hypixel.net/styles/hypixel-v2/images/game-icons/Duels-64.png')
-                    .addField("`Player`", `[**${drank} ${dname}**](https://plancke.io/hypixel/player/stats/${username})`)
+                    .addField("`Player`", `[**${drank} ${dname} ${guildt}**](https://plancke.io/hypixel/player/stats/${username})`)
                     .addField("`KDR`", `**${kdr}**`, true)
                     .addField("`Kills`", `**${kills}**`, true)
                     .addField("`Deaths`", `**${deaths}**`, true)
@@ -262,59 +250,32 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
                     .addField("`Bow Shots `", `**${shots}**`, true)
                     .addField("`Coins`", `**${coins}**`, true)
                     .addField("`Winstreak`", `**${winstreak}**`, true)
-                    .addField("`Guild`", `[**${nguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
+                    .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
                     .setImage(`${skin}`, true)
                     .setTimestamp('')
-                    .setFooter(`${dname}'s ${lastl} | Playing ${gamemode}! | ${version}`, 'http://icons.iconarchive.com/icons/custom-icon-design/flatastic-10/512/Trafficlight-green-icon.png' )
-                    message.channel.send(swembed)
-                            })
-                        })
-                    } else {
-                      let lastl = ('Offline')
-                                    
-                                    
-                  var guildname = (`https://api.hypixel.net/findGuild?key=${key}&byUuid=${id}`)
-                      fetch(guildname)
-                  .then(response => {
-                      return response.json();
-                        })
-                  .then(guild => {
-                        var guildn = guild['guild']
+                    .setFooter(footer, footp)
+                    const mmEmbed = message.reply({embed: pbembed}).then(msg => {
+        msg.react('📩');
+        msg.react('❌');
 
-                    var guildstats = (`https://api.hypixel.net/guild?key=${key}&id=${guildn}`)
-                        fetch(guildstats)
-                    .then(response => {
-                        return response.json();
-                      })
-                    .then(guilds => {
-                try { var nguild = guilds['guild']['name'] } catch { var nguild = "None" }
-                                
-                  const swembed = new Discord.MessageEmbed()
-                    .setColor('#b22121')
-                    .setTitle('**Duels**')
-                    .setThumbnail('https://hypixel.net/styles/hypixel-v2/images/game-icons/Duels-64.png')
-                    .addField("`Player`", `[**${drank} ${dname}**](https://plancke.io/hypixel/player/stats/${username})`)
-                    .addField("`KDR`", `**${kdr}**`, true)
-                    .addField("`Kills`", `**${kills}**`, true)
-                    .addField("`Deaths`", `**${deaths}**`, true)
-                    .addField("`Win/Loss`", `**${wlr}**`, true)
-                    .addField("`Wins`", `**${wins}**`, true)
-                    .addField("`Losses`", `**${loss}**`, true)
-                    .addField("`Sword Acc`", `**${swordacc}%**`, true)
-                    .addField("`Sword Hits`", `**${hits}**`, true)
-                    .addField("`Sword Swings`", `**${swings}**`, true)
-                    .addField("`Bow Acc`", `**${bowacc}%**`, true)
-                    .addField("`Bow Hits`", `**${bhits}**`, true)
-                    .addField("`Bow Shots `", `**${shots}**`, true)
-                    .addField("`Coins`", `**${coins}**`, true)
-                    .addField("`Winstreak`", `**${winstreak}**`, true)
-                    .addField("`Guild`", `[**${nguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
-                    .setImage(`${skin}`, true)
-                    .setFooter(`${dname}'s ${lastl}! | Last Seen Playing ${gamemode}! | ${version}`, 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Location_dot_dark_red.svg/768px-Location_dot_dark_red.svg.png'  )
-                    message.channel.send(swembed)
+        const collector = msg.createReactionCollector(
+        (reaction, user) => ['❌','📩',].includes(reaction.emoji.name) && user.id === message.author.id,
+        {idle: 300000}
+        )
+        collector.on('collect', reaction => {
+		
+                if (reaction.emoji.name === '📩') {
+                reaction.users.remove(message.author.id);
+                message.author.send(pbembed)
+                 }
+                if (reaction.emoji.name === '❌') {
+                msg.delete();
+                message.delete();
+                }
                             })
                         })
-                    }
+                        })
+                    })
           });
       });
   }

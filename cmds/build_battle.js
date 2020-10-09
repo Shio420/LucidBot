@@ -1,6 +1,6 @@
 module.exports = {
-  name: "murder_mystery",
-  description: "murder mystery statistics",
+  name: "build_battle",
+  description: "build build_battle statistics",
   execute(message, args) {
     
     const Discord = require("discord.js");
@@ -48,25 +48,18 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
             if (typeof vers === "undefined") {
               var version = " ";
             }
-            var coins = player["player"]["stats"]["MurderMystery"]["coins"];
-            var mchance = player["player"]["stats"]["MurderMystery"]["murderer_chance"];
-            var dchance = player["player"]["stats"]["MurderMystery"]["detective_chance"];    
-            var inchance = (mchance + dchance);
-            var ichance = (100 - inchance);
-            var mm_chests = player["player"]["stats"]["MurderMystery"]["mm_chests"];
-            var games = player["player"]["stats"]["MurderMystery"]["games"];
-            var wins = player["player"]["stats"]["MurderMystery"]["wins"];
+            var coins = player["player"]["stats"]["BuildBattle"]["coins"];
+            var wtn = player["player"]["stats"]["BuildBattle"]["wins_teams_normal"];
+            var wsn = player["player"]["stats"]["BuildBattle"]["wins_solo_normal"];
+            var wsp = player["player"]["stats"]["BuildBattle"]["wins_solo_pro"]
+            var games = player["player"]["stats"]["BuildBattle"]["games_played"];
+            var wins = player["player"]["stats"]["BuildBattle"]["wins"];
             var loss = (games - wins);
-            var kills = player["player"]["stats"]["MurderMystery"]["kills"];
-            var deaths = player["player"]["stats"]["MurderMystery"]["deaths"];
-            var b = kills;
-            var c = deaths;
-            var d = b / c;
-            var kdrdeci = d;
-            var kdr = kdrdeci.toFixed(2);
+            var score  = player["player"]["stats"]["BuildBattle"]["score"];
+            var wgtb = player["player"]["stats"]["BuildBattle"]["wins_guess_the_build"];
+            if (loss == null) {var b = 1;}
             var a = wins;
             var b = loss;
-            if (loss == null) {var b = 1;}
             var c = a / b;
             var wlrdeci = c;
             var wlr = wlrdeci.toFixed(2);
@@ -180,17 +173,19 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
               num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
               return num_parts.join(".");
             }
-            var kills = formatNumber(kills);
-            var deaths = formatNumber(deaths);
+            var wgtb = formatNumber(wgtb);
+            var wtn = formatNumber(wtn);
+            var wsn = formatNumber(wsn);
+            var wsp = formatNumber(wsp);
             var wins = formatNumber(wins);
+            var wlr = formatNumber(wlr);
             var loss = formatNumber(loss);
             var coins = formatNumber(coins);
-            var kdr = formatNumber(kdr);
-            var wlr = formatNumber(wlr);
-            var mm_chests = formatNumber(mm_chests);
+            var score = formatNumber(score);
+            var games_played = formatNumber(games_played);
             } catch {}
 
-             var skin = `https://visage.surgeplay.com/full/${id}?'+Math.random()'`;
+            var skin = `https://visage.surgeplay.com/full/${id}?'+Math.random()'`;
            var guildname = `https://api.hypixel.net/findGuild?key=${key}&byUuid=${id}`;
               fetch(guildname)
                 .then(response => {
@@ -205,7 +200,7 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
                       return response.json();
                     })
                     .then(guilds => {
-                      try {
+                       try {
                         var nnguild = guilds["guild"]["name"];
                         var nguild = nnguild.replace(/ /g,"%20");
                       } catch {
@@ -226,20 +221,17 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
                 }
                     const pbembed = new Discord.MessageEmbed()
                     .setColor(color)
-                    .setTitle('**Murder Mystery**')
-                    .setThumbnail('https://hypixel.net/styles/hypixel-v2/images/game-icons/MurderMystery-64.png')
+                    .setTitle('**Build Battle**')
+                    .setThumbnail('https://hypixel.net/styles/hypixel-v2/images/game-icons/BuildBattle-64.png')
                     .addField("`Player`", `[**${drank} ${dname} ${guildt}**](https://plancke.io/hypixel/player/stats/${username})`)
-                    .addField("`Murder Chance`", `**${mchance}%**`, true)
-                    .addField("`Detective Chance`", `**${dchance}%**`, true)
-                    .addField("`Innocent Chance`", `**${ichance}%**`, true)
-                    .addField("`KDR`", `**${kdr}**`, true)
-                    .addField("`Kills`", `**${kills}**`, true)
-                    .addField("`Deaths`", `**${deaths}**`, true)
-                    .addField("`Win/Loss`", `**${wlr}**`, true)
-                    .addField("`Wins`", `**${wins}**`, true)
-                    .addField("`Losses`", `**${loss}**`, true)
+                    .addField("`WLR`", `**${wlr}**`, true)
+                    .addField("`All Wins`", `**${wins}**`, true)
+                    .addField("`All Losses`", `**${loss}**`, true)
+                    .addField("`Solo Wins`", `**${wsn}**`, true)
+                    .addField("`Team Wins`", `**${wtn}**`, true)
+                    .addField("`Pro Wins`", `**${wsp}**`, true)
+                    .addField("`Score`", `**${score}**`, true)
                     .addField("`Coins`", `**${coins}**`, true)
-                    .addField("`Loot Chests`", `**${mm_chests}**`, true)
                     .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
                     .setImage(`${skin}`, true)
                     .setTimestamp('')

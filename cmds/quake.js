@@ -1,10 +1,10 @@
 module.exports = {
-  name: "murder_mystery",
-  description: "murder mystery statistics",
+  name: "quake",
+  description: "quake statistics",
   execute(message, args) {
     
     const Discord = require("discord.js");
-    const { token } = "NjY1NjYwNTM3NDU5MTc5NTcz.Xho2rw.k8li5PF_xr9zHQ0wRDjqKAVellw";
+    const { token } = "NjYxNzM4MDI3MTE4MzYyNjQ0.XgvxkA.rEcKH4YDWdJReHe4zFlDkroz23o";
     const prefix = "!";
     const fetch = require("node-fetch");
     const key = "62f57a9d-9f77-40b3-a3ce-9bb9e326af85";
@@ -48,28 +48,19 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
             if (typeof vers === "undefined") {
               var version = " ";
             }
-            var coins = player["player"]["stats"]["MurderMystery"]["coins"];
-            var mchance = player["player"]["stats"]["MurderMystery"]["murderer_chance"];
-            var dchance = player["player"]["stats"]["MurderMystery"]["detective_chance"];    
-            var inchance = (mchance + dchance);
-            var ichance = (100 - inchance);
-            var mm_chests = player["player"]["stats"]["MurderMystery"]["mm_chests"];
-            var games = player["player"]["stats"]["MurderMystery"]["games"];
-            var wins = player["player"]["stats"]["MurderMystery"]["wins"];
-            var loss = (games - wins);
-            var kills = player["player"]["stats"]["MurderMystery"]["kills"];
-            var deaths = player["player"]["stats"]["MurderMystery"]["deaths"];
+            var coin = player["player"]["stats"]["Quake"]["coins"]; 
+            var killstreak = player["player"]["stats"]["Quake"]["highest_killstreak"];
+            var shots = player["player"]["stats"]["Quake"]["shots_fired"];
+            var headshots = player["player"]["stats"]["Quake"]["headshots"];
+            var shotper = (headshots / shots * 100);
+            var hshot = shotper.toFixed();
+            var kills = player["player"]["stats"]["Quake"]["kills"];
+            var deaths = player["player"]["stats"]["Quake"]["deaths"];
             var b = kills;
             var c = deaths;
             var d = b / c;
             var kdrdeci = d;
             var kdr = kdrdeci.toFixed(2);
-            var a = wins;
-            var b = loss;
-            if (loss == null) {var b = 1;}
-            var c = a / b;
-            var wlrdeci = c;
-            var wlr = wlrdeci.toFixed(2);
             var gamemode = player["player"]["mostRecentGameType"];
             if (typeof gamemode === "undefined") {
               var gamemode = "Limbo";
@@ -181,16 +172,15 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
               return num_parts.join(".");
             }
             var kills = formatNumber(kills);
+            var coin = formatNumber(coin);
             var deaths = formatNumber(deaths);
-            var wins = formatNumber(wins);
-            var loss = formatNumber(loss);
-            var coins = formatNumber(coins);
+            var killstreak = formatNumber(killstreak);
+            var headshots = formatNumber(headshots);
+            var shots = formatNumber(shots);
             var kdr = formatNumber(kdr);
-            var wlr = formatNumber(wlr);
-            var mm_chests = formatNumber(mm_chests);
             } catch {}
 
-             var skin = `https://visage.surgeplay.com/full/${id}?'+Math.random()'`;
+            var skin = `https://visage.surgeplay.com/full/${id}?'+Math.random()'`;
            var guildname = `https://api.hypixel.net/findGuild?key=${key}&byUuid=${id}`;
               fetch(guildname)
                 .then(response => {
@@ -226,20 +216,17 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
                 }
                     const pbembed = new Discord.MessageEmbed()
                     .setColor(color)
-                    .setTitle('**Murder Mystery**')
-                    .setThumbnail('https://hypixel.net/styles/hypixel-v2/images/game-icons/MurderMystery-64.png')
+                    .setTitle('**Quakecraft**')
+                    .setThumbnail('https://hypixel.net/styles/hypixel-v2/images/game-icons/Quakecraft-64.png')
                     .addField("`Player`", `[**${drank} ${dname} ${guildt}**](https://plancke.io/hypixel/player/stats/${username})`)
-                    .addField("`Murder Chance`", `**${mchance}%**`, true)
-                    .addField("`Detective Chance`", `**${dchance}%**`, true)
-                    .addField("`Innocent Chance`", `**${ichance}%**`, true)
                     .addField("`KDR`", `**${kdr}**`, true)
                     .addField("`Kills`", `**${kills}**`, true)
                     .addField("`Deaths`", `**${deaths}**`, true)
-                    .addField("`Win/Loss`", `**${wlr}**`, true)
-                    .addField("`Wins`", `**${wins}**`, true)
-                    .addField("`Losses`", `**${loss}**`, true)
-                    .addField("`Coins`", `**${coins}**`, true)
-                    .addField("`Loot Chests`", `**${mm_chests}**`, true)
+                    .addField("`Headshot Acc`", `**${hshot}%**`, true)
+                    .addField("`Shots Fired`", `**${shots}**`, true)
+                    .addField("`Headshots`", `**${headshots}**`, true)
+                    .addField("`Highest Streak`", `**${killstreak}**`, true)
+                    .addField("`Coins`", `**${coin}**`, true)
                     .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
                     .setImage(`${skin}`, true)
                     .setTimestamp('')
