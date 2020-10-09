@@ -1,7 +1,7 @@
 module.exports = {
   name: "v",
   description: "Verification",
-  execute(message, args, keys) {
+  execute(message, args, key) {
     const Discord = require("discord.js");
     const prefix = "!";
     const fetch = require("node-fetch");
@@ -9,7 +9,6 @@ module.exports = {
     let splitcommand = fullcommand.split(" ");
     let username = splitcommand.slice(1);
     var discord1 = message.member.user.tag.toLowerCase();
-    
     const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
     fetch(api)
       .catch(message.delete({ timeout: 1000 }))
@@ -66,18 +65,7 @@ module.exports = {
             var hour = date.getHours();
             var min = date.getMinutes();
             var sec = date.getSeconds();
-            var time =
-              day +
-              " " +
-              month +
-              " " +
-              year +
-              " " +
-              hour +
-              ":" +
-              min +
-              ":" +
-              sec;
+            var time = day + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
             var c = a / b;
             var wlrdeci = c;
             var wlr = wlrdeci.toFixed(2);
@@ -337,67 +325,38 @@ module.exports = {
                 );
                 member.roles.add(wlr.id);
               }
-              try {
-                var drank = player["player"]["newPackageRank"];
-                if (drank === "VIP") {
-                  let drank = message.guild.roles.cache.find(
-                    role => role.name === "VIP"
-                  );
-                  let member = message.guild.member(message.author);
-                  member.roles.add(drank.id);
-                }
-                if (drank === "VIP_PLUS") {
-                  let drank = message.guild.roles.cache.find(
-                    role => role.name === "VIP+"
-                  );
-                  let member = message.guild.member(message.author);
-                  member.roles.add(drank.id);
-                }
-                if (drank === "MVP") {
-                  let drank = message.guild.roles.cache.find(
-                    role => role.name === "MVP"
-                  );
-                  let member = message.guild.member(message.author);
-                  member.roles.add(drank.id);
-                }
-                if (drank === "MVP_PLUS") {
-                let drank = message.guild.roles.cache.find(
-                  role => role.name === "MVP+"
-                );
-                let member = message.guild.member(message.author);
-                let urole = message.guild.roles.cache.find(
-                  role => role.name === "MVP"
-                );
-                let erole = message.guild.roles.cache.find(
-                  role => role.name === "MVP++"
-                );
-                if (mrank === false) {
-                  member.roles.remove(erole.id);
-                }
-                member.roles.remove(urole.id);
-                member.roles.add(drank.id);
-              }
-              try {
-                var mrank = player["player"]["monthlyPackageRank"];
-                if (mrank === "SUPERSTAR") {
-                  let mrank = message.guild.roles.cache.find(
-                    role => role.name === "MVP++"
-                  );
-                  let drank = message.guild.roles.cache.find(
-                    role => role.name === "MVP+"
-                  );
-                  let member = message.guild.member(message.author);
-                  member.roles.remove(drank.id);
-                  member.roles.add(mrank.id);
-                }
-              } catch {
-                member.roles.remove(drank.id);
-              }
+        try {
+        let d2args = player["player"]["newPackageRank"];
+  	switch (d2args) {
+		case "VIP":
+   			        var drank = message.guild.roles.cache.find(role => role.name === "VIP")
+                                member.roles.add(drank.id)
+    		break;
+		case "VIP_PLUS":
+   			        var drank = message.guild.roles.cache.find(role => role.name === "VIP+")
+                                member.roles.add(drank.id)
+    		break;
+		case "MVP":
+   			        var drank = message.guild.roles.cache.find(role => role.name === "MVP")
+                                member.roles.add(drank.id)
+    		break;	
+		case "MVP_PLUS":
+   			        var drank = message.guild.roles.cache.find(role => role.name === "MVP+")
+                                member.roles.add(drank.id)
+                break;	
+	}
+        let mpack = player["player"]["monthlyPackageRank"];
+  	switch (mpack) {
+		case "SUPERSTAR":
+   			        var drank = message.guild.roles.cache.find(role => role.name === "MVP++")
+                                member.roles.add(drank.id)
+    		break;		
+	}
                 const verifymessage = new Discord.MessageEmbed()
                 .setColor('#00FF00')
                 .addField("**Congratulations!**", `**${dname}** You have been verifed on the **${message.guild}** Discord.`, true)
                 .setTimestamp(`${time}`)
-                .setFooter(`Lucid v2.5.3 | Created by Kanabayashi#0931 & Bluq#2277`);       
+                .setFooter(`Lucid v2.7.3 | Created by Kanabayashi#0931 & Bluq#2277`);       
                 message.author.send(verifymessage)
               } catch {
                message.author.send(`**Your linked discord**: __${discord2}__  **& Your discord:** __${discord1}__ **do not match!**`)

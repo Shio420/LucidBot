@@ -14,7 +14,7 @@ module.exports = {
         .addField("`✔️`", `To create the roles used by Lucid Bot`, true)
         .addField("`❌`", `To remove this message`, true)
         .addField("`Help Server`", `[**Lucid Guild**](https://discord.gg/kmqdwxG)`,true)
-        .setFooter(`Lucid v2.5.3 | Created by Kanabayashi#0931 & Bluq#2277`)
+        .setFooter(`Lucid v2.7.3 | Created by Kanabayashi#0931 & Bluq#2277`)
         const setupEmbed = message.reply({embed: setupmessage}).then(setup => {
         setup.react('✔️');
         setup.react('❌');
@@ -86,7 +86,7 @@ collector.on('collect', reaction => {
         .setThumbnail('https://cdn.discordapp.com/attachments/666097662403018766/752824828863447050/lucidsmp.png')
         .addField("`Success`", `Now to be verified use the command **!v IGN**`, true)
         .addField("`Help Server`", `[**Lucid Guild**](https://discord.gg/kmqdwxG)`,true)
-        .setFooter(`Lucid v2.5.3 | Created by Kanabayashi#0931 & Bluq#2277`)
+        .setFooter(`Lucid v2.7.3 | Created by Kanabayashi#0931 & Bluq#2277`)
                 message.author.send(setupdm)
                  }
         if (reaction.emoji.name === '❌') {

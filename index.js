@@ -27,7 +27,7 @@ client.on('ready' , () => {
         return num_parts.join(".");
         }
     var mlist = formatNumber(memberlist);
-client.user.setActivity(`${mlist} USERS! | !HELP | WORKS IN DM TOO`, {type: "WATCHING"});
+client.user.setActivity(`${mlist} Users! | !help | WORKS IN DM TOO`, {type: "WATCHING"});
 });
 //Welcome Message
 client.on('guildMemberAdd', member => {
@@ -119,7 +119,7 @@ if (!message.content.startsWith(prefix)) return
     break;
 
     case "ping":
-      client.commands.get('ping').execute(message, args, key);
+      client.commands.get('ping').execute(message, args, client);
     break;
 
     case "setup":

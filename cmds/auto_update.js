@@ -384,140 +384,42 @@ fetch(api)
                 member.roles.add(prestige.id);
                 member.setNickname(`[${star}✫] ${dname}`);
               }
-              if (
-                message.member.roles.cache.some(r =>
-                  ["[»] Chat Mod"].includes(r.name)
-                )
-              ) {
-                member.setNickname(`[${star}✫] ${dname}`);
-              }
-              if (
-                message.member.roles.cache.some(r =>
-                  ["[»] Mod"].includes(r.name)
-                )
-              ) {
-                member.setNickname(`[${star}✫] ${dname}`);
-              }
-              if (
-                message.member.roles.cache.some(r =>
-                  ["[»] Admin"].includes(r.name)
-                )
-              ) {
-                member.setNickname(`[${star}✫] ${dname}`);
-              }
-              if (
-                message.member.roles.cache.some(r =>
-                  ["[»] Manager"].includes(r.name)
-                )
-              ) {
-                member.setNickname(`[${star}✫] ${dname}`);
-              }
-              if (
-                message.member.roles.cache.some(r =>
-                  ["[»] Owner"].includes(r.name)
-                )
-              ) {
-                member.setNickname(`[${star}✫] ${dname}`);
-              }
-              if (
-                message.member.roles.cache.some(r =>
-                  ["[»] Trial Staff"].includes(r.name)
-                )
-              ) {
-                member.setNickname(`[${star}✫] ${dname}`);
-              }
-              if (
-                message.member.roles.cache.some(r =>
-                  ["[»] Guild Staff"].includes(r.name)
-                )
-              ) {
-                member.setNickname(`[${star}✫] ${dname}`);
-              }
-              if (
-                message.member.roles.cache.some(r =>
-                  ["[»] Leader"].includes(r.name)
-                )
-              ) {
-                member.setNickname(`[${star}✫] ${dname}`);
-              }
-              if (
-                message.member.roles.cache.some(r =>
-                  ["[»] Content Creator"].includes(r.name)
-                )
-              ) {
-                member.setNickname(`[${star}✫] ${dname}`);
-              }
-              if (
-                message.member.roles.cache.some(r =>
-                  ["[»] Partner"].includes(r.name)
-                )
-              ) {
-                member.setNickname(`[${star}✫] ${dname}`);
-              }
-              var drank = player["player"]["newPackageRank"];
-              if (drank === "VIP") {
-                let drank = message.guild.roles.cache.find(
-                  role => role.name === "VIP"
-                );
-                let member = message.guild.member(message.author);
-                member.roles.add(drank.id);
-              }
-              if (drank === "VIP_PLUS") {
-                let drank = message.guild.roles.cache.find(
-                  role => role.name === "VIP+"
-                );
-                let member = message.guild.member(message.author);
-                let urole = message.guild.roles.cache.find(
-                  role => role.name === "VIP"
-                );
-                member.roles.remove(urole.id);
-                member.roles.add(drank.id);
-              }
-              if (drank === "MVP") {
-                let drank = message.guild.roles.cache.find(
-                  role => role.name === "MVP"
-                );
-                let member = message.guild.member(message.author);
-                let urole = message.guild.roles.cache.find(
-                  role => role.name === "VIP+"
-                );
-                member.roles.remove(urole.id);
-                member.roles.add(drank.id);
-              }
-
-              if (drank === "MVP_PLUS") {
-                let drank = message.guild.roles.cache.find(
-                  role => role.name === "MVP+"
-                );
-                let member = message.guild.member(message.author);
-                let urole = message.guild.roles.cache.find(
-                  role => role.name === "MVP"
-                );
-                let erole = message.guild.roles.cache.find(
-                  role => role.name === "MVP++"
-                );
-                if (mrank === false) {
-                  member.roles.remove(erole.id);
-                }
-                member.roles.remove(urole.id);
-                member.roles.add(drank.id);
-              }
-              try {
-                var mrank = player["player"]["monthlyPackageRank"];
-                if (mrank === "SUPERSTAR") {
-                  let mrank = message.guild.roles.cache.find(
-                    role => role.name === "MVP++"
-                  );
-                  let drank = message.guild.roles.cache.find(
-                    role => role.name === "MVP+"
-                  );
-                  let member = message.guild.member(message.author);
-                  member.roles.remove(drank.id);
-                  member.roles.add(mrank.id);
-                }
-              } catch {
-                member.roles.remove(drank.id);
-              }
+        let d2args = player["player"]["newPackageRank"];
+  	switch (d2args) {
+		case "VIP":
+   			        var drank = message.guild.roles.cache.find(role => role.name === "VIP")
+                                member.roles.add(drank.id)
+    		break;
+		case "VIP_PLUS":
+   			        var drank = message.guild.roles.cache.find(role => role.name === "VIP+")
+                                var urank = message.guild.roles.cache.find(role => role.name === "VIP")
+                                member.roles.add(drank.id)
+                                member.roles.remove(urank.id)
+    		break;
+		case "MVP":
+   			        var drank = message.guild.roles.cache.find(role => role.name === "MVP")
+                                var urank = message.guild.roles.cache.find(role => role.name === "VIP+")
+                                member.roles.add(drank.id)
+                                member.roles.remove(urank.id)  
+    		break;	
+		case "MVP_PLUS":
+   			        var drank = message.guild.roles.cache.find(role => role.name === "MVP+")
+                	        var urank = message.guild.roles.cache.find(role => role.name === "MVP")
+                                var brole = message.guild.roles.cache.find(role => role.name === "MVP++")
+                                member.roles.add(drank.id)
+                                member.roles.remove(urank.id)
+                                member.roles.remove(brole.id)
+                break;	
+	}
+        let mpack = player["player"]["monthlyPackageRank"];
+  	switch (mpack) {
+		case "SUPERSTAR":
+   			        var drank = message.guild.roles.cache.find(role => role.name === "MVP++")
+                	        var urank = message.guild.roles.cache.find(role => role.name === "MVP+")
+                                member.roles.add(drank.id)
+                                member.roles.remove(urank.id)
+    		break;		
+	}
             } else {
             }
           });

@@ -25,7 +25,7 @@ module.exports = {
       .addField(`Uptime:`, `${uptime}`)
       .addField("`Invite`", `[**Lucid Bot**](https://discord.com/oauth2/authorize?client_id=665660537459179573&scope=bot&permissions=0)`)
       .setColor(0xf1c40f)
-      .setFooter(`Lucid v2.5.3 | Created by Kanabayashi#0931 & Bluq#2277`);
+      .setFooter(`Lucid v2.7.3 | Created by Kanabayashi#0931 & Bluq#2277`);
     const pingEmbed = message.reply({embed: ping}).then(msg => {
         msg.react('📩');
         msg.react('❌');

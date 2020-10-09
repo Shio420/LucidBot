@@ -28,7 +28,7 @@ module.exports = {
         .addField("`!setup`", ` Creates bot roles (Owner Only)`, true)
         .addField("`Help Server`", `[**Lucid Guild**](https://discord.gg/kmqdwxG)`,true)
         .addField("`Help Video`", `[**Tutorial**](https://youtu.be/KhvPiKWZ6G0)`,true)
-        .setFooter(`Lucid v2.5.3 | Created by Kanabayashi#0931 & Bluq#2277`)
+        .setFooter(`Lucid v2.7.3 | Created by Kanabayashi#0931 & Bluq#2277`)
         //message.author.send(helpmessage)
  const helpEmbed = message.reply({embed: helpmessage}).then(help => {
 help.react('📩');
