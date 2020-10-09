@@ -75,27 +75,45 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
             var j = h - i;
             var lastl = j;
             var j = lastl;
-            var drank = player["player"]["newPackageRank"];
-            if (drank === "VIP_PLUS") {
-              var rankd = drank.slice(0, -5);
-              var drank = `[${rankd}+]`;
-            }
-            if (drank === "MVP_PLUS") {
-              var rankd = drank.slice(0, -5);
-              var drank = `[${rankd}+]`;
-            }
-            if (drank === "VIP") {
-              var drank = `[VIP]`;
-            }
-            if (drank === "MVP") {
-              var drank = `[MVP]`;
-            }
-            if (typeof drank === "undefined") {
-              var drank = " ";
-            }
-            if (typeof drank === "NONE") {
-              var drank = " ";
-            }
+	let d2args = player["player"]["newPackageRank"];
+  	switch (d2args[0]) {
+		case "VIP":
+   			var drank = "[VIP]"
+    		break;
+		case "VIP_PLUS":
+   			var drank = "[VIP+]"
+    		break;
+		case "MVP":
+   			var drank = "[MVP]"
+    		break;	
+		case "MVP_PLUS":
+   			var drank = "[MVP+]"		
+	}
+	let dargs = player["player"]["rank"];
+  	switch (dargs[0]) {
+		case "YOUTUBE":
+   			var drank = "[Youtube]"
+    		break;
+		case "HELPER":
+   			var drank = "[Helper]"
+    		break;
+		case "MOD":
+   			var drank = "[Mod]"
+    		break;	
+		case "ADMIN":
+   			var drank = "[Admin]"
+    		break;	
+		case "OWNER":
+   			var drank = "[Owner]"
+    		break;
+		case "undefined":
+   			var drank = " "
+    		break;	
+		case "NONE":
+   			var drank = " "
+    		break;	
+			
+	}
             try {
               var mrank = player["player"]["monthlyPackageRank"];
               if (mrank === "SUPERSTAR") {
@@ -104,46 +122,7 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
             } catch {
               return;
             }
-            try {
-              var mrank = player["player"]["rank"];
-              if (mrank === "YOUTUBER") {
-                var drank = `[Youtuber]`;
-              }
-            } catch {
-              return;
-            }
-            try {
-              var mrank = player["player"]["rank"];
-              if (mrank === "HELPER") {
-                var drank = `[Helper]`;
-              }
-            } catch {
-              return;
-            }
-            try {
-              var mrank = player["player"]["rank"];
-              if (mrank === "MOD") {
-                var drank = `[Mod]`;
-              }
-            } catch {
-              return;
-            }
-            try {
-              var mrank = player["player"]["rank"];
-              if (mrank === "ADMIN") {
-                var drank = `[Admin]`;
-              }
-            } catch {
-              return;
-            }
-            try {
-              var mrank = player["player"]["rank"];
-              if (mrank === "OWNER") {
-                var drank = `[Owner]`;
-              }
-            } catch {
-              return;
-            }
+           
             try {
               var mrank = player["player"]["prefix"];
               if (mrank === "§3[BUILD TEAM]") {
