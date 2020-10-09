@@ -2,10 +2,10 @@ const http = require("http");
 const express = require("express");
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const token = "NjY1NjYwNTM3NDU5MTc5NTcz.Xho2rw.k8li5PF_xr9zHQ0wRDjqKAVellw" 
+const token = "" 
 const snekfetch = require("snekfetch");
 const prefix = '!';
-const key = ("7f79186d-de88-440d-b4c2-d47127d6f658");
+const key = ""
 const fs = require("fs");
 //Command Reader
 client.commands = new Discord.Collection();
