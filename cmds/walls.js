@@ -1,12 +1,10 @@
 module.exports = {
   name: "walls",
   description: "walls statistics",
-  execute(message, args) {
+  execute(message, args, key) {
     const Discord = require("discord.js");
-    const { token } = "NjYxNzM4MDI3MTE4MzYyNjQ0.XgvxkA.rEcKH4YDWdJReHe4zFlDkroz23o";
     const prefix = "!";
     const fetch = require("node-fetch");
-    const key = "62f57a9d-9f77-40b3-a3ce-9bb9e326af85";
     let fullcommand = message.content.substr(5);
     let splitcommand = fullcommand.split(" ");
     let username = splitcommand.slice(1);

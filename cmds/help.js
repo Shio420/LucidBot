@@ -4,10 +4,8 @@ module.exports = {
   execute(message, args) {
     
     const Discord = require("discord.js");
-    const { token } = "NjY1NjYwNTM3NDU5MTc5NTcz.Xho2rw.k8li5PF_xr9zHQ0wRDjqKAVellw";
     const prefix = "!";
     const fetch = require("node-fetch");
-    const key = "62f57a9d-9f77-40b3-a3ce-9bb9e326af85";
     const helpmessage = new Discord.MessageEmbed()
         .setColor(0xf1c40f)
         .setTitle("**Command List**")

@@ -1,24 +1,13 @@
 module.exports = {
   name: "profile",
   description: "profile",
-  execute(message, args) {
+  execute(message, args, key) {
     const Discord = require("discord.js");
-    const {
-      token
-    } = "NjY1NjYwNTM3NDU5MTc5NTcz.Xho2rw.k8li5PF_xr9zHQ0wRDjqKAVellw";
     const prefix = "!";
     const fetch = require("node-fetch");
-    const key = "62f57a9d-9f77-40b3-a3ce-9bb9e326af85";
-    let fullCommand = message.content.substr(7);
-    let splitCommand = fullCommand.split(" ");
-    let primaryCommand = splitCommand[0];
-    let username = splitCommand.slice(1);
-    if (message.member.roles.cache.some(r => ["Verified"].includes(r.name))) {
-      if (message === "undefined") {
-        let username = "0";
-      }
-    }
-    const user = username;
+    let fullcommand = message.content.substr(7);
+    let splitcommand = fullcommand.split(" ");
+    let username = splitcommand.slice(1);
     const api = `https://api.mojang.com/users/profiles/minecraft/${user}`;
     fetch(api)
       .then(response => {

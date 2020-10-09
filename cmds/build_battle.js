@@ -1,13 +1,10 @@
 module.exports = {
   name: "build_battle",
   description: "build build_battle statistics",
-  execute(message, args) {
-    
+  execute(message, args, key) {
     const Discord = require("discord.js");
-    const { token } = "NjY1NjYwNTM3NDU5MTc5NTcz.Xho2rw.k8li5PF_xr9zHQ0wRDjqKAVellw";
     const prefix = "!";
     const fetch = require("node-fetch");
-    const key = "62f57a9d-9f77-40b3-a3ce-9bb9e326af85";
     let fullcommand = message.content.substr(2);
     let splitcommand = fullcommand.split(" ");
     let username = splitcommand.slice(1);

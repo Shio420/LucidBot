@@ -1,17 +1,11 @@
 module.exports = {
   name: "setup",
   description: "setup",
-  execute(message) {
+ execute(message, args, key) {
+
     const Discord = require("discord.js");
-    const {
-      token
-    } = "NjY1NjYwNTM3NDU5MTc5NTcz.Xho2rw.k8li5PF_xr9zHQ0wRDjqKAVellw";
     const prefix = "!";
     const fetch = require("node-fetch");
-    const key = "62f57a9d-9f77-40b3-a3ce-9bb9e326af85";
-    var nickname2 = message.member.displayName;
-    let splitcommand = nickname2.split(" ");
-    const username = splitcommand.slice(1);
      if (message.member === message.guild.owner) {
         const setupmessage = new Discord.MessageEmbed()
         .setColor(0xf1c40f)

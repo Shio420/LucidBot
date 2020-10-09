@@ -12,14 +12,11 @@
     "@replit/database": "^2.0.0",
     "centra": "^2.4.2",
     "discord.js": "^12.3.1",
-    "discord.js-collector": "^1.4.3",
     "express": "^4.17.1",
     "http": "0.0.0",
     "hypixel-api": "^1.2.0",
-    "moment-timezone": "^0.5.31",
     "node": "^14.8.0",
-    "node-fetch": "^2.6.1",
-    "snekfetch": "^4.0.4"
+    "node-fetch": "^2.6.1"
   },
   "engines": {
     "node": ">=14.0.0",

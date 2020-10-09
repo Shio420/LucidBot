@@ -1,13 +1,11 @@
 module.exports = {
   name: "bedwars",
   description: "Bedwars Statistics",
-  execute(message, args) {
+  execute(message, args, key) {
+
     const Discord = require("discord.js");
-    const {token} = "NjY1NjYwNTM3NDU5MTc5NTcz.Xho2rw.k8li5PF_xr9zHQ0wRDjqKAVellw";
-    const { ReactionCollector } = require("discord.js-collector");
     const prefix = "!";
     const fetch = require("node-fetch");
-    const key = "62f57a9d-9f77-40b3-a3ce-9bb9e326af85";
     let fullcommand = message.content.substr(2);
     let splitcommand = fullcommand.split(" ");
     let username = splitcommand.slice(1);
@@ -555,7 +553,7 @@ module.exports = {
                         .addField("`Beds/Game`", `**${avgb}**`, true)
                         .addField("`Star`", `**${star}**`, true)
                         .addField("`Winstreak`", `**${winstreak}**`, true)
-                        .addField(`[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
+                        .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
                         .setImage(`${skin}`, true)
                         .setTimestamp("")
                         .setFooter(footer, footp)
@@ -581,7 +579,7 @@ module.exports = {
                 .addField("`Beds/Game`", `**${solo_avgb}**`, true)
                 .addField("`Star`", `**${star}**`, true)
                 .addField("`Winstreak`", `**${solo_winstreak}**`, true)
-                .addField(`[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
+                .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
                 .setImage(`${skin}`, true)
                 .setTimestamp("")
                 .setFooter(footer, footp)
@@ -607,7 +605,7 @@ module.exports = {
           .addField("`Beds/Game`", `**${doub_avgb}**`, true)
           .addField("`Star`", `**${star}**`, true)
           .addField("`Winstreak`", `**${doub_winstreak}**`, true)
-          .addField(`[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
+          .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
           .setImage(`${skin}`, true)
           .setTimestamp("")
           .setFooter(footer, footp)
@@ -633,7 +631,7 @@ module.exports = {
           .addField("`Beds/Game`", `**${trio_avgb}**`, true)
           .addField("`Star`", `**${star}**`, true)
           .addField("`Winstreak`", `**${trio_winstreak}**`, true)
-          .addField(`[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
+          .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
           .setImage(`${skin}`, true)
           .setTimestamp("")
           .setFooter(footer, footp)
@@ -659,7 +657,7 @@ module.exports = {
           .addField("`Beds/Game`", `**${four_avgb}**`, true)
           .addField("`Star`", `**${star}**`, true)
           .addField("`Winstreak`", `**${four_winstreak}**`, true)
-          .addField(`[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
+          .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
           .setImage(`${skin}`, true)
           .setTimestamp("")
           .setFooter(footer, footp)
@@ -685,7 +683,7 @@ module.exports = {
           .addField("`Beds/Game`", `**${v4_avgb}**`, true)
           .addField("`Star`", `**${star}**`, true)
           .addField("`Winstreak`", `**${v4_winstreak}**`, true)
-          .addField(`[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
+          .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
           .setImage(`${skin}`, true)
           .setTimestamp("")
           .setFooter(footer, footp)
@@ -739,3 +737,4 @@ const backwards = bw.createReactionCollector(
       });
   }
 }
+
