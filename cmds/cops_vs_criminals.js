@@ -1,10 +1,9 @@
 module.exports = {
   name: "cop_v_crim",
   description: "Cops Vc Crim Statistics",
-  execute(message, args, key) {
+  execute(message, key) {
     
     const Discord = require("discord.js");
-    const prefix = "!";
     const fetch = require("node-fetch");
     let fullcommand = message.content.substr(3);
     let splitcommand = fullcommand.split(" ");

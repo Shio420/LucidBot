@@ -58,72 +58,72 @@ if (!message.content.startsWith(prefix)) return
   switch (args[0]) {
       
     case "v":
-      client.commands.get('v').execute(message, args, key);
+      client.commands.get('v').execute(message, key);
       
     break;
       
     case "help":
-      client.commands.get('help').execute(message, args, key);
+      client.commands.get('help').execute(message);
     break;
       
     case "bw":
-      client.commands.get('bedwars').execute(message, args, key);
+      client.commands.get('bedwars').execute(message, key);
     break;
 
     case "pb":
-      client.commands.get('paintball').execute(message, args, key);
+      client.commands.get('paintball').execute(message, key);
     break;
 
     case "sh":
-      client.commands.get('smash').execute(message, args, key);
+      client.commands.get('smash').execute(message, key);
     break;
 
     case "sw":
-      client.commands.get('skywars').execute(message, args, key);
+      client.commands.get('skywars').execute(message, key);
     break;
 
     case "mm":
-      client.commands.get('murder_mystery').execute(message, args, key);
+      client.commands.get('murder_mystery').execute(message, key);
     break;
 
     case "mw":
-      client.commands.get('mega_walls').execute(message, args, key);
+      client.commands.get('mega_walls').execute(message, key);
     break;
 
     case "bb":
-      client.commands.get('build_battle').execute(message, args, key);
+      client.commands.get('build_battle').execute(message, key);
     break;
 
     case "qc":
-      client.commands.get('quake').execute(message, args, key);
+      client.commands.get('quake').execute(message, key);
     break;
 
     case "pit":
-      client.commands.get('pit').execute(message, args, key);
+      client.commands.get('pit').execute(message, key);
     break;
 
     case "cvc":
-      client.commands.get('cop_v_crim').execute(message, args, key);
+      client.commands.get('cop_v_crim').execute(message, key);
     break;
 
     case "duels":
-      client.commands.get('duels').execute(message, args, key);
+      client.commands.get('duels').execute(message, key);
     break;
 
     case "walls":
-      client.commands.get('walls').execute(message, args, key);
+      client.commands.get('walls').execute(message, key);
     break;
       
     case "profile":
-      client.commands.get('profile').execute(message, args, key);
+      client.commands.get('profile').execute(message, key);
     break;
 
     case "ping":
-      client.commands.get('ping').execute(message, args, client);
+      client.commands.get('ping').execute(message, client);
     break;
 
     case "setup":
-      client.commands.get('setup').execute(message, args, key);
+      client.commands.get('setup').execute(message);
     break;
   }
 });

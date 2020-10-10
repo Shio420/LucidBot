@@ -1,10 +1,9 @@
 module.exports = {
   name: "setup",
   description: "setup",
- execute(message, args, key) {
+ execute(message) {
 
     const Discord = require("discord.js");
-    const prefix = "!";
     const fetch = require("node-fetch");
      if (message.member === message.guild.owner) {
         const setupmessage = new Discord.MessageEmbed()
@@ -26,12 +25,14 @@ module.exports = {
 collector.on('collect', reaction => {
 		
         if (reaction.emoji.name === '✔️') {
+                setup.delete();
+                message.delete();
                 reaction.users.remove(message.author.id);
                 const guild = message.guild
         guild.roles.create({ data: { name: '[»] Rainbow Prestige', color: '#e63838'}});
         guild.roles.create({ data: { name: '[»] Amethyst Prestige', color: '#8828b1'}});
-        guild.roles.create({ data: { name: '[»] Opal Prestige', color: '#a443c2'}});
-        guild.roles.create({ data: { name: '[»] Crystal Prestige', color: '#373dc0'}});
+        guild.roles.create({ data: { name: '[»] Opal Prestige', color: '#373dc0'}});
+        guild.roles.create({ data: { name: '[»] Crystal Prestige', color: '#de1be6'}});
         guild.roles.create({ data: { name: '[»] Ruby Prestige', color: '#a5070d'}});
         guild.roles.create({ data: { name: '[»] Sapphire Prestige', color: '#26c0bc'}});
         guild.roles.create({ data: { name: '[»] Emerald Prestige', color: '#17771a'}});
@@ -80,14 +81,26 @@ collector.on('collect', reaction => {
         var urole = ({ data: { name: 'Unverified'}});
         guild.roles.create(vrole);
         guild.roles.create(urole);
-        const setupdm = new Discord.MessageEmbed()
+        const setupresponse = new Discord.MessageEmbed()
         .setColor(0xf1c40f)
         .setTitle("**Verification Setup**")
         .setThumbnail('https://cdn.discordapp.com/attachments/666097662403018766/752824828863447050/lucidsmp.png')
         .addField("`Success`", `Now to be verified use the command **!v IGN**`, true)
         .addField("`Help Server`", `[**Lucid Guild**](https://discord.gg/kmqdwxG)`,true)
         .setFooter(`Lucid v2.7.3 | Created by Kanabayashi#0931 & Bluq#2277`)
-                message.author.send(setupdm)
+        const mmEmbed = message.reply({embed: setupresponse}).then(msg => {
+        msg.react('❌');
+        const collector = msg.createReactionCollector(
+        (reaction, user) => ['❌'].includes(reaction.emoji.name) && user.id === message.author.id,
+        {idle: 300000}
+        )
+        collector.on('collect', reaction => {
+                if (reaction.emoji.name === '❌') {
+                msg.delete();
+                message.delete();
+                }
+                            })
+                        })
                  }
         if (reaction.emoji.name === '❌') {
                 setup.delete();

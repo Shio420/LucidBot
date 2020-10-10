@@ -1,10 +1,9 @@
 module.exports = {
   name: "help",
   description: "help",
-  execute(message, args) {
+  execute(message) {
     
     const Discord = require("discord.js");
-    const prefix = "!";
     const fetch = require("node-fetch");
     const helpmessage = new Discord.MessageEmbed()
         .setColor(0xf1c40f)

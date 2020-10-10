@@ -1,9 +1,8 @@
 module.exports = {
   name: "profile",
   description: "profile",
-  execute(message, args, key) {
+  execute(message, key) {
     const Discord = require("discord.js");
-    const prefix = "!";
     const fetch = require("node-fetch");
     let fullcommand = message.content.substr(7);
     let splitcommand = fullcommand.split(" ");

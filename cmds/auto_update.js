@@ -3,7 +3,6 @@ module.exports = {
   description: "update",
   execute(message, key) {
     const Discord = require("discord.js");
-    const prefix = "!";
     const fetch = require("node-fetch");
     var nickname2 = message.member.displayName;
     let splitcommand = nickname2.split(" ");

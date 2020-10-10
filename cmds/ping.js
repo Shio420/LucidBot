@@ -2,11 +2,9 @@ module.exports = {
   name: "ping",
   description: "Ping The Bot - Bot Statistics",
   cooldown: 5,
-  execute(message, args, client) {
+  execute(message, client) {
     const Discord = require("discord.js");
-    const prefix = "!";
     const fetch = require("node-fetch");
-
     let totalSeconds = client.uptime / 1000;
     let days = Math.floor(totalSeconds / 86400);
     let hours = Math.floor(totalSeconds / 3600);

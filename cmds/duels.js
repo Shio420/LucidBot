@@ -1,9 +1,8 @@
 module.exports = {
   name: "duels",
   description: "duels statistics",
- execute(message, args, key) {
+ execute(message, key) {
     const Discord = require("discord.js");
-    const prefix = "!";
     const fetch = require("node-fetch");
     let fullcommand = message.content.substr(5);
     let splitcommand = fullcommand.split(" ");

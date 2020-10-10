@@ -1,10 +1,9 @@
 module.exports = {
   name: "smash",
   description: "SuperSmash statistics",
-  execute(message, args, key) {
+  execute(message, key) {
 
     const Discord = require("discord.js");
-    const prefix = "!";
     const fetch = require("node-fetch");
     let fullcommand = message.content.substr(2);
     let splitcommand = fullcommand.split(" ");

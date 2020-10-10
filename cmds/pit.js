@@ -1,9 +1,8 @@
 module.exports = {
   name: "pit",
   description: "the pit statistics",
-  execute(message, args, key) {
+  execute(message, key) {
     const Discord = require("discord.js");
-    const prefix = "!";
     const fetch = require("node-fetch");
     let fullcommand = message.content.substr(3);
     let splitcommand = fullcommand.split(" ");
