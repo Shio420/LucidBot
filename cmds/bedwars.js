@@ -350,6 +350,7 @@ module.exports = {
    			var drank = "[MVP+]"		
 	}
 	let dargs = player["player"]["rank"];
+        if (dargs == undefined) {var drank = " "}
   	switch (dargs) {
 		case "YOUTUBE":
    			var drank = "[Youtube]"
@@ -366,9 +367,6 @@ module.exports = {
 		case "OWNER":
    			var drank = "[Owner]"
     		break;
-		case "undefined":
-   			var drank = " "
-    		break;	
 		case "NONE":
    			var drank = " "
     		break;		

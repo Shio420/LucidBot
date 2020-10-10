@@ -89,6 +89,7 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
    			var drank = "[MVP+]"		
 	}
 	let dargs = player["player"]["rank"];
+        if (dargs == undefined) {var drank = " "}
   	switch (dargs) {
 		case "YOUTUBE":
    			var drank = "[Youtube]"
@@ -105,10 +106,7 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
 		case "OWNER":
    			var drank = "[Owner]"
     		break;
-		case "undefined":
-   			var drank = " "
-    		break;	
-		case "NONE":
+                case "NONE":
    			var drank = " "
     		break;		
 	}
