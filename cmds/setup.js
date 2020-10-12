@@ -10,21 +10,21 @@ module.exports = {
         .setColor(0xf1c40f)
         .setTitle("**Verification Setup**")
         .setThumbnail('https://cdn.discordapp.com/attachments/666097662403018766/752824828863447050/lucidsmp.png')
-        .addField("`✔️`", `To create the roles used by Lucid Bot`, true)
+        .addField("`✅`", `To create the roles used by Lucid Bot`, true)
         .addField("`❌`", `To remove this message`, true)
         .addField("`Help Server`", `[**Lucid Guild**](https://discord.gg/kmqdwxG)`,true)
         .setFooter(`Lucid v2.7.3 | Created by Kanabayashi#0931 & Bluq#2277`)
         const setupEmbed = message.reply({embed: setupmessage}).then(setup => {
-        setup.react('✔️');
+        setup.react('✅');
         setup.react('❌');
 
         const collector = setup.createReactionCollector(
-(reaction, user) => ['❌','✔️',].includes(reaction.emoji.name) && user.id === message.author.id,
+(reaction, user) => ['❌','✅',].includes(reaction.emoji.name) && user.id === message.author.id,
 {idle: 300000}
 )
 collector.on('collect', reaction => {
 		
-        if (reaction.emoji.name === '✔️') {
+        if (reaction.emoji.name === '✅') {
                 setup.delete();
                 message.delete();
                 reaction.users.remove(message.author.id);

@@ -8,21 +8,21 @@ module.exports = {
     let fullcommand = message.content.substr(2);
     let splitcommand = fullcommand.split(" ");
     let username = splitcommand.slice(1);
-
     const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
     fetch(api)
       .catch()
       .then(response => {
-        return response.json();
+        return response.json()
       })
       .then(data => {
         const id = data.id;
-
         const hypixel = `https://api.hypixel.net/player?key=${key}&uuid=${id}`;
         fetch(hypixel)
           .catch()
           .then(response => {
-            return response.json();
+            return response.json()
+            const error = response.error
+            if(error === null){message.reply("Username Invalid")}
           })
 
           .then(player => {
@@ -511,7 +511,7 @@ module.exports = {
                         .addField("`Finals/Game`", `**${fpg}**`, true)
                         .addField("`Kills/Game`", `**${avgk}**`, true)
                         .addField("`Beds/Game`", `**${avgb}**`, true)
-                        .addField("`Star`", `**${star}**`, true)
+                        .addField("`Star`", `**${star}☆**`, true)
                         .addField("`Winstreak`", `**${winstreak}**`, true)
                         .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
                         .setImage(`${skin}`, true)
@@ -537,7 +537,7 @@ module.exports = {
                 .addField("`Finals/Game`", `**${solo_fpg}**`, true)
                 .addField("`Kills/Game`", `**${solo_avgk}**`, true)
                 .addField("`Beds/Game`", `**${solo_avgb}**`, true)
-                .addField("`Star`", `**${star}**`, true)
+                .addField("`Star`", `**${star}☆**`, true)
                 .addField("`Winstreak`", `**${solo_winstreak}**`, true)
                 .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
                 .setImage(`${skin}`, true)
@@ -563,7 +563,7 @@ module.exports = {
           .addField("`Finals/Game`", `**${doub_fpg}**`, true)
           .addField("`Kills/Game`", `**${doub_avgk}**`, true)
           .addField("`Beds/Game`", `**${doub_avgb}**`, true)
-          .addField("`Star`", `**${star}**`, true)
+          .addField("`Star`", `**${star}☆**`, true)
           .addField("`Winstreak`", `**${doub_winstreak}**`, true)
           .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
           .setImage(`${skin}`, true)
@@ -589,7 +589,7 @@ module.exports = {
           .addField("`Finals/Game`", `**${trio_fpg}**`, true)
           .addField("`Kills/Game`", `**${trio_avgk}**`, true)
           .addField("`Beds/Game`", `**${trio_avgb}**`, true)
-          .addField("`Star`", `**${star}**`, true)
+          .addField("`Star`", `**${star}☆**`, true)
           .addField("`Winstreak`", `**${trio_winstreak}**`, true)
           .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
           .setImage(`${skin}`, true)
@@ -615,7 +615,7 @@ module.exports = {
           .addField("`Finals/Game`", `**${four_fpg}**`, true)
           .addField("`Kills/Game`", `**${four_avgk}**`, true)
           .addField("`Beds/Game`", `**${four_avgb}**`, true)
-          .addField("`Star`", `**${star}**`, true)
+          .addField("`Star`", `**${star}☆**`, true)
           .addField("`Winstreak`", `**${four_winstreak}**`, true)
           .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
           .setImage(`${skin}`, true)
@@ -641,7 +641,7 @@ module.exports = {
           .addField("`Finals/Game`", `**${v4_fpg}**`, true)
           .addField("`Kills/Game`", `**${v4_avgk}**`, true)
           .addField("`Beds/Game`", `**${v4_avgb}**`, true)
-          .addField("`Star`", `**${star}**`, true)
+          .addField("`Star`", `**${star}☆**`, true)
           .addField("`Winstreak`", `**${v4_winstreak}**`, true)
           .addField("`Guild`", `[**${nnguild}**](https://plancke.io/hypixel/guild/name/${nguild})` ,true)
           .setImage(`${skin}`, true)
@@ -694,7 +694,7 @@ const backwards = bw.createReactionCollector(
                         })
                     })
           });
-      });
+   });
   }
 }
 

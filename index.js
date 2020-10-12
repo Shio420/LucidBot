@@ -21,17 +21,22 @@ for(const file of commandFiles){
 client.on('ready' , () => {
     console.log("Connected as "+ client.user.tag);
     var memberlist = client.users.cache.size;
+    var guildlist = client.guilds.cache.size;
      function formatNumber(num) {
         var num_parts = num.toString().split(".");
         num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         return num_parts.join(".");
         }
     var mlist = formatNumber(memberlist);
-client.user.setActivity(`${mlist} Users! | !help | WORKS IN DM TOO`, {type: "WATCHING"});
+    var glist = formatNumber(guildlist);
+client.user.setActivity(`${mlist} Users! | !help | ${glist} Servers!`, {type: "WATCHING"});
+//client.guilds.cache.forEach((guild) => {console.log(guild.name)
+//});
 });
 //Welcome Message
 client.on('guildMemberAdd', member => {
 try{
+
 var lucid = member.guild.channels.cache.get('556606325165916172');
 var verify = member.guild.channels.cache.get('743429334496313375').toString();
 lucid.send(`<@${member.id}> Welcome to the **Lucid Discord**. Make sure you head to ${verify} and follow the steps to be verified!`);
@@ -53,13 +58,13 @@ client.on('message', message => {
 //Main Commands
 client.on('message', message => {
 if (!message.content.startsWith(prefix)) return
+;
   let args = message.content.substring(prefix.length).split(" ");
 
   switch (args[0]) {
       
     case "v":
       client.commands.get('v').execute(message, key);
-      
     break;
       
     case "help":
@@ -124,6 +129,10 @@ if (!message.content.startsWith(prefix)) return
 
     case "setup":
       client.commands.get('setup').execute(message);
+    break;
+
+    case "apply":
+        if (message.guild.id === '548487129869582349') { client.commands.get('apply').execute(message) };
     break;
   }
 });
