@@ -96,7 +96,6 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
    			var drank = "[MVP+]"		
 	}
 	let dargs = player["player"]["rank"];
-        if (dargs == undefined) {var drank = " "}
   	switch (dargs) {
 		case "YOUTUBE":
    			var drank = "[Youtube]"
@@ -127,7 +126,7 @@ const api = `https://api.mojang.com/users/profiles/minecraft/${username}`;
     		break;			
 	}
         let mpack = player["player"]["monthlyPackageRank"];
-  	switch (pref) {
+  	switch (mpack) {
 		case "SUPERSTAR":
    			var drank = "[MVP++]"
     		break;		

@@ -132,7 +132,7 @@ if (!message.content.startsWith(prefix)) return
     break;
 
     case "apply":
-        if (message.guild.id === '548487129869582349') { client.commands.get('apply').execute(message) };
+        if (message.guild.id === '548487129869582349') { client.commands.get('apply').execute(message, key) };
     break;
   }
 });

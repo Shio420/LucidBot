@@ -350,7 +350,6 @@ module.exports = {
    			var drank = "[MVP+]"		
 	}
 	let dargs = player["player"]["rank"];
-        if (dargs == undefined) {var drank = " "}
   	switch (dargs) {
 		case "YOUTUBE":
    			var drank = "[Youtube]"
@@ -381,7 +380,7 @@ module.exports = {
     		break;			
 	}
         let mpack = player["player"]["monthlyPackageRank"];
-  	switch (pref) {
+  	switch (mpack) {
 		case "SUPERSTAR":
    			var drank = "[MVP++]"
     		break;		
